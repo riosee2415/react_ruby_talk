@@ -6,6 +6,7 @@ import Friend from "./Friend";
 import Message from "./Message";
 import Profile from "./Profile";
 import Setting from "./Setting";
+import Login from "./Login";
 
 const ContentWrapper = styled.section`
   width: 100%;
@@ -23,6 +24,10 @@ class App extends React.Component {
   render() {
     return (
       <>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+        </Routes>
+
         <ContentWrapper>
           <Routes>
             <Route exact path="/friend" element={<Friend />} />
@@ -33,7 +38,12 @@ class App extends React.Component {
         </ContentWrapper>
 
         <NavWrapper>
-          <BottomNav />
+          <Routes>
+            <Route exact path="/friend" element={<BottomNav />} />
+            <Route exact path="/message" element={<BottomNav />} />
+            <Route exact path="/profile" element={<BottomNav />} />
+            <Route exact path="/setting" element={<BottomNav />} />
+          </Routes>
         </NavWrapper>
       </>
     );
