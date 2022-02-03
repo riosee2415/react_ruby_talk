@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Whole = styled.section`
   width: 100%;
@@ -79,12 +80,20 @@ const Login = () => {
     setCode(event.target.value);
   };
 
-  const loginAction = () => {
+  const loginAction = async () => {
     if (email === "") {
       return message.error("이메일을 입력해주세요.");
     }
 
-    // email을 back앤드로 보내준다!
+    const result = await axios.post(
+      "http://localhost:4000/api/user/emailCheck",
+      {
+        email,
+      }
+    );
+
+    console.log(result);
+
     setStep(2);
   };
 
