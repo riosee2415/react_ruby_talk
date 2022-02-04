@@ -92,15 +92,28 @@ const Login = () => {
       }
     );
 
-    console.log(result);
-
     setStep(2);
   };
 
   const codeCheckAction = async () => {
-    await localStorage.setItem("ruby_login", true);
+    const result = await axios.post(
+      "http://localhost:4000/api/user/checkCode",
+      {
+        email,
+        code,
+      }
+    );
 
-    message.success("Welcome RUBY TALK");
+    await localStorage.setItem("ruby_login", true);
+    await localStorage.setItem("ruby_user_nickname", result.data.nickname);
+    await localStorage.setItem("ruby_user_avatar", result.data.avatar);
+    await localStorage.setItem("ruby_user_id", result.data.id);
+    await localStorage.setItem("ruby_user_statusMsg", result.data.statusMsg);
+    await localStorage.setItem("ruby_user_email", result.data.email);
+
+    message.success(
+      `${result.data.nickname}님, 환영합니다. Ruby Talk에 접속하셨습니다.`
+    );
 
     navigate("/friend");
   };
